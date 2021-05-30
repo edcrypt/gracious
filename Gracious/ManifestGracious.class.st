@@ -9,7 +9,7 @@ Class {
 
 { #category : #'code-critics' }
 ManifestGracious class >> ruleGRTemporaryNeitherReadNorWrittenRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsMethodWithMultipleVars #false)) #'2021-05-30T11:33:11.600446-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsMethodWithMultipleVars #false)) #'2021-05-30T11:33:11.600446-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testCascadeMessageMethod #false)) #'2021-05-30T13:53:59.326481-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testBlockMethod #false)) #'2021-05-30T13:55:08.915232-03:00') )
 ]
 
 { #category : #'code-critics' }

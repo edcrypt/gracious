@@ -107,6 +107,8 @@ GraciousParserTests >> testSimpleElementsMethodWithMultipleVars [
 				parseMethod: self simpleElementsMethodWithMultipleVars ]
 		raise: SmaCCParserError.
 	self assert: ast temporaries size equals: 3.
+	"TODO: extend RBSimpleFormatter>>formatTemporariesFor: and RBProgramNode>>formatterClass 
+	       to show | a b. c d | instead of | a b c d |"
 	self assert: ast temporaries first name equals: #'a b'.
 	self assert: ast temporaries second name equals: #'c d'.
 	self assert: ast temporaries last name equals: #'e f'
@@ -121,6 +123,7 @@ GraciousParserTests >> testsimpleElementsMultiKeywordMethod [
 		] 
 		raise: SmaCCParserError.
 	self assert: ast arguments size equals: 2.
+	"TODO: extend the ast to show the ';' separator"
 	self assert: ast arguments first name equals: #'x y'.
 	self assert: ast arguments last name equals: #'z w'.
 ]
