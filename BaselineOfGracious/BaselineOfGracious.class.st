@@ -19,5 +19,5 @@ BaselineOfGracious >> baseline: spec [
 { #category : #dependencies }
 BaselineOfGracious >> smaCC: spec [
 	spec baseline: 'SmaCC'
-		   with: [ spec repository: 'github://SmaCCRefactoring/SmaCC' ]
+		   with: [ spec repository: 'github://j-brant/SmaCC/src' ]
 ]
