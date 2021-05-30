@@ -64,54 +64,63 @@ GraciousParserTests >> simpleElementsMultiKeywordMethod [
 
 { #category : #tests }
 GraciousParserTests >> testBlockMethod [
-	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self blockMethod)
-		raise: SmaCCParserError
+	| ast |
+	self shouldnt: [ast := GraciousParser parseMethod: self blockMethod] 
+		   raise: SmaCCParserError.
 ]
 
 { #category : #tests }
 GraciousParserTests >> testCascadeMessageMethod [
-	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self cascadeMessageMethod )
-		raise: SmaCCParserError
+	| ast |
+	self shouldnt: [ast := GraciousParser parseMethod: self cascadeMessageMethod] 
+		   raise: SmaCCParserError.
 ]
 
 { #category : #'simple tests' }
 GraciousParserTests >> testSimpleElementsKeywordMethod [
-	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self simpleElementsKeywordMethod )
-		raise: SmaCCParserError
+	| ast |
+	self shouldnt: [ast := GraciousParser parseMethod: self simpleElementsKeywordMethod]
+	     raise: SmaCCParserError.
+	self assert: ast selector equals: #'do it:'.
+	self assert: ast arguments size equals: 1.
+	self assert: ast arguments first name equals: 'x y'.
+
 ]
 
 { #category : #'simple tests' }
 GraciousParserTests >> testSimpleElementsMethod [
-	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self simpleElementsMethod )
-		raise: SmaCCParserError
+	| ast |
+	self shouldnt: [ast := GraciousParser parseMethod: self simpleElementsMethod]
+			raise: SmaCCParserError.
+	self assert: ast selector equals: #'do it'.
+	self assert: ast body temporaries first name equals: 'a b'.
+	self assert: ast body statements first variable name equals: 'a b'.
+	"TODO: subclass RBLiteralNode to know the type of literal?"
+	self assert: ast body statements first value value equals: '42'.
 ]
 
 { #category : #'simple tests' }
 GraciousParserTests >> testSimpleElementsMethodWithMultipleVars [
+	| ast |
 	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self simpleElementsMethodWithMultipleVars )
-		raise: SmaCCParserError
+		shouldnt: [ ast := GraciousParser
+				parseMethod: self simpleElementsMethodWithMultipleVars ]
+		raise: SmaCCParserError.
+	self assert: ast temporaries size equals: 3.
+	self assert: ast temporaries first name equals: #'a b'.
+	self assert: ast temporaries second name equals: #'c d'.
+	self assert: ast temporaries last name equals: #'e f'
+	
 ]
 
 { #category : #'simple tests' }
 GraciousParserTests >> testsimpleElementsMultiKeywordMethod [
-	self
-		shouldnt:
-			(GraciousParser 
-				parseMethod: self simpleElementsMultiKeywordMethod )
-		raise: SmaCCParserError
+	| ast |
+	self shouldnt: [ 
+			ast := GraciousParser parseMethod: self simpleElementsMultiKeywordMethod.
+		] 
+		raise: SmaCCParserError.
+	self assert: ast arguments size equals: 2.
+	self assert: ast arguments first name equals: #'x y'.
+	self assert: ast arguments last name equals: #'z w'.
 ]
