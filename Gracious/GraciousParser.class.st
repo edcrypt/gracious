@@ -1,3 +1,6 @@
+"
+I parse Gracious Language methods and expressions, in order to build (Pharo) ASTs.
+"
 Class {
 	#name : #GraciousParser,
 	#superclass : #SmaCCParser,
