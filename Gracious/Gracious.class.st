@@ -1,7 +1,13 @@
 "
 !Gracious Language
 
-I'm Gracious, a (WIP) language aiming to provide a more ""naturalistic"" interaction for building simulations, domain models and providing game extending capabilities.
+I'm Gracious, a (WIP) language aiming to provide a more ""naturalistic"" interaction for building simulations and domain models, and providing game extending capabilities.
+
+My main design principle are:
+ - The code itself that you write is part of the modeling you are writing. If it's not expressive enough, or if you have to mix abstraction levels, those problem affect your modelling.
+ - The language and the rest of the development tooling are part of a whole and should be designed together, with Developer Experience as the main focus.
+ - You can't have a trully holistic design if you can't extend and mold your tools.
+ - To be an expressive tool in the hands of humans, a language should feel naturalistic.
 
 By naturalistic, I mean that I aim to have this features, one syntactic and two semantic:
 
@@ -23,7 +29,15 @@ Some changes from the standard Pharo syntax:
 # The semicollon also allows me to combine single-keyword messages and multi-keyword ones:
 # The last message syntax to have two kinds is binary, with the unicode flavour, with a higher precedence (still bellow unary messages):  
 
+!!Semantics
 
+!!! Prototyping
+
+!!! Collaborators
+
+!!! Special Messages
+
+!!! Actor-Model
 "
 Class {
 	#name : #Gracious,
