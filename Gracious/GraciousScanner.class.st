@@ -7,17 +7,12 @@ Class {
 { #category : #'generated-initialization' }
 GraciousScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(20 'false' 12) #(20 'nil' 14) #(20 'true' 11) #(26 '||' 15))
+	#(#(20 'false' 13) #(20 'nil' 14) #(20 'true' 15) #(26 '||' 18))
 		do: [ :each | 
 			(keywordMap at: each first ifAbsentPut: [ Dictionary new ])
 				at: (each at: 2)
 				put: each last ].
 	^ keywordMap
-]
-
-{ #category : #generated }
-GraciousScanner class >> states [
-	^ #(#default)
 ]
 
 { #category : #generated }
@@ -27,12 +22,12 @@ GraciousScanner >> binarySymbolId [
 
 { #category : #generated }
 GraciousScanner >> emptySymbolTokenId [
-	^ 65
+	^ 67
 ]
 
 { #category : #generated }
 GraciousScanner >> errorTokenId [
-	^ 66
+	^ 68
 ]
 
 { #category : #generated }
@@ -72,18 +67,7 @@ GraciousScanner >> scan3 [
 	[ self step.
 	currentCharacter isSeparator
 		or: [ currentCharacter == Character pageUp ] ] whileTrue.
-	((currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ])
+	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan4 ].
 	^ self reportLastMatch
 ]
@@ -99,18 +83,7 @@ GraciousScanner >> scan4 [
 	(currentCharacter isSeparator
 		or: [ currentCharacter == Character pageUp ])
 		ifTrue: [ ^ self scan3 ].
-	(currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ] ]
+	currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ]
 		whileTrue.
 	^ self reportLastMatch
 ]
@@ -118,17 +91,7 @@ GraciousScanner >> scan4 [
 { #category : #generated }
 GraciousScanner >> scan5 [
 	self step.
-	((currentCharacter between: $A and: $Z)
-		or: [ currentCharacter == $_
-				or: [ (currentCharacter between: $a and: $z)
-						or: [ ('ªµº' includes: currentCharacter)
-								or: [ (currentCharacter
-										between: (Character value: 192)
-										and: (Character value: 214))
-										or: [ (currentCharacter
-												between: (Character value: 216)
-												and: (Character value: 246))
-												or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ])
+	(currentCharacter isLetter or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan6 ].
 	^ self reportLastMatch
 ]
@@ -144,32 +107,10 @@ GraciousScanner >> scan6 [
 		ifTrue: [ [ self step.
 			currentCharacter isSeparator
 				or: [ currentCharacter == Character pageUp ] ] whileTrue.
-			((currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_
-								or: [ (currentCharacter between: $a and: $z)
-										or: [ ('ªµº' includes: currentCharacter)
-												or: [ (currentCharacter
-														between: (Character value: 192)
-														and: (Character value: 214))
-														or: [ (currentCharacter
-																between: (Character value: 216)
-																and: (Character value: 246))
-																or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ])
+			(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 				ifTrue: [ ^ self scan6 ].
 			^ self reportLastMatch ].
-	(currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ] ]
+	currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ]
 		whileTrue.
 	^ self reportLastMatch
 ]
@@ -178,17 +119,7 @@ GraciousScanner >> scan6 [
 GraciousScanner >> scan7 [
 	self recordMatch: #(24).
 	self step.
-	((currentCharacter between: $A and: $Z)
-		or: [ currentCharacter == $_
-				or: [ (currentCharacter between: $a and: $z)
-						or: [ ('ªµº' includes: currentCharacter)
-								or: [ (currentCharacter
-										between: (Character value: 192)
-										and: (Character value: 214))
-										or: [ (currentCharacter
-												between: (Character value: 216)
-												and: (Character value: 246))
-												or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ])
+	(currentCharacter isLetter or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan8 ].
 	^ self reportLastMatch
 ]
@@ -199,17 +130,7 @@ GraciousScanner >> scan8 [
 	currentCharacter == $:
 		ifTrue: [ self recordMatch: #(25).
 			self step.
-			((currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ])
+			(currentCharacter isLetter or: [ currentCharacter == $_ ])
 				ifTrue: [ ^ self scan8 ].
 			^ self reportLastMatch ].
 	(currentCharacter isSeparator
@@ -217,32 +138,10 @@ GraciousScanner >> scan8 [
 		ifTrue: [ [ self step.
 			currentCharacter isSeparator
 				or: [ currentCharacter == Character pageUp ] ] whileTrue.
-			((currentCharacter between: $0 and: $9)
-				or: [ (currentCharacter between: $A and: $Z)
-						or: [ currentCharacter == $_
-								or: [ (currentCharacter between: $a and: $z)
-										or: [ ('ªµº' includes: currentCharacter)
-												or: [ (currentCharacter
-														between: (Character value: 192)
-														and: (Character value: 214))
-														or: [ (currentCharacter
-																between: (Character value: 216)
-																and: (Character value: 246))
-																or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ])
+			(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 				ifTrue: [ ^ self scan8 ].
 			^ self reportLastMatch ].
-	(currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ] ]
+	currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ]
 		whileTrue.
 	^ self reportLastMatch
 ]
@@ -258,34 +157,44 @@ GraciousScanner >> scanForToken [
 		ifTrue: [ ^ self scanForTokenX12 ].
 	currentCharacter == $'
 		ifTrue: [ ^ self scanForTokenX11 ].
-	currentCharacter == $(
-		ifTrue: [ ^ self recordAndReportMatch: #(4 31) ].
-	currentCharacter == $)
-		ifTrue: [ ^ self recordAndReportMatch: #(3 31) ].
-	currentCharacter == $-
-		ifTrue: [ ^ self scanForTokenX2 ].
-	currentCharacter == $.
-		ifTrue: [ ^ self recordAndReportMatch: #(5 31) ].
-	currentCharacter == $:
-		ifTrue: [ ^ self scanForTokenX10 ].
-	currentCharacter == $;
-		ifTrue: [ ^ self recordAndReportMatch: #(6 31) ].
 	^ self scanForTokenX14
 ]
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX1 [
-	self recordMatch: #(20 31).
+	self recordMatch: #(26 31).
 	self step.
-	^ self scanForTokenX1X1
+	currentCharacter isDigit
+		ifTrue: [ [ self recordMatch: #(22).
+			self step.
+			currentCharacter isDigit ] whileTrue.
+			^ self reportLastMatch ].
+	(currentCharacter == $!
+		or: [ (currentCharacter between: $% and: $&)
+				or: [ (currentCharacter between: $* and: $+)
+						or: [ ('-/' includes: currentCharacter)
+								or: [ (currentCharacter between: $< and: $@)
+										or: [ '\|~' includes: currentCharacter ] ] ] ] ])
+		ifTrue: [ [ self recordMatch: #(26).
+			self step.
+			currentCharacter == $!
+				or: [ (currentCharacter between: $% and: $&)
+						or: [ (currentCharacter between: $* and: $+)
+								or: [ ('-/' includes: currentCharacter)
+										or: [ (currentCharacter between: $< and: $@)
+												or: [ '\|~' includes: currentCharacter ] ] ] ] ] ]
+				whileTrue ].
+	^ self reportLastMatch
 ]
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX10 [
-	self recordMatch: #(18 31).
+	self recordMatch: #(21 31).
 	self step.
-	currentCharacter == $=
-		ifTrue: [ ^ self recordAndReportMatch: #(13) ].
+	currentCharacter isDigit
+		ifTrue: [ [ self recordMatch: #(21).
+			self step.
+			currentCharacter isDigit ] whileTrue ].
 	^ self reportLastMatch
 ]
 
@@ -307,86 +216,60 @@ GraciousScanner >> scanForTokenX12 [
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX13 [
+	currentCharacter == $|
+		ifTrue: [ ^ self scanForTokenX3 ].
+	currentCharacter == $}
+		ifTrue: [ ^ self recordAndReportMatch: #(19 31) ].
+	currentCharacter isDigit
+		ifTrue: [ ^ self scanForTokenX10 ].
+	(currentCharacter isSeparator
+		or: [ currentCharacter == Character null ])
+		ifTrue: [ ^ self scanForTokenX7 ].
 	(currentCharacter == $!
 		or: [ (currentCharacter between: $% and: $&)
 				or: [ (currentCharacter between: $* and: $+)
 						or: [ ('/=' includes: currentCharacter)
 								or: [ (currentCharacter between: $? and: $@)
 										or: [ '\~' includes: currentCharacter ] ] ] ] ])
-		ifTrue: [ ^ self scanForTokenX3 ].
-	(currentCharacter isSafeForHTTP
-		or: [ ('ªµº' includes: currentCharacter)
-				or: [ (currentCharacter
-						between: (Character value: 192)
-						and: (Character value: 214))
-						or: [ (currentCharacter
-								between: (Character value: 216)
-								and: (Character value: 246))
-								or: [ currentCharacter >= (Character value: 248) ] ] ] ])
-		ifTrue: [ ^ self scanForTokenX1 ].
+		ifTrue: [ ^ self scanForTokenX2 ].
+	(currentCharacter isLetter or: [ currentCharacter == $_ ])
+		ifTrue: [ ^ self scanForTokenX6 ].
 	^ self recordAndReportMatch: #(31)
 ]
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX14 [
-	currentCharacter == $<
-		ifTrue: [ ^ self scanForTokenX6 ].
-	currentCharacter == $>
-		ifTrue: [ ^ self scanForTokenX5 ].
-	currentCharacter == $[
-		ifTrue: [ ^ self recordAndReportMatch: #(17 31) ].
-	currentCharacter == $]
-		ifTrue: [ ^ self recordAndReportMatch: #(19 31) ].
-	currentCharacter == $^
-		ifTrue: [ ^ self recordAndReportMatch: #(16 31) ].
-	currentCharacter == ${
-		ifTrue: [ ^ self recordAndReportMatch: #(8 31) ].
-	currentCharacter == $|
-		ifTrue: [ ^ self scanForTokenX4 ].
-	currentCharacter == $}
+	currentCharacter == $(
 		ifTrue: [ ^ self recordAndReportMatch: #(2 31) ].
-	(currentCharacter between: $0 and: $9)
-		ifTrue: [ ^ self scanForTokenX9 ].
-	(currentCharacter isSeparator
-		or: [ currentCharacter == Character null ])
-		ifTrue: [ ^ self scanForTokenX7 ].
-	^ self scanForTokenX13
-]
-
-{ #category : #generated }
-GraciousScanner >> scanForTokenX1X1 [
+	currentCharacter == $)
+		ifTrue: [ ^ self recordAndReportMatch: #(3 31) ].
+	currentCharacter == $-
+		ifTrue: [ ^ self scanForTokenX1 ].
 	currentCharacter == $.
-		ifTrue: [ ^ self scan5 ].
+		ifTrue: [ ^ self recordAndReportMatch: #(4 31) ].
 	currentCharacter == $:
-		ifTrue: [ ^ self scan7 ].
-	(currentCharacter isSeparator
-		or: [ currentCharacter == Character pageUp ])
-		ifTrue: [ ^ self scan3 ].
-	((currentCharacter between: $0 and: $9)
-		or: [ (currentCharacter between: $A and: $Z)
-				or: [ currentCharacter == $_
-						or: [ (currentCharacter between: $a and: $z)
-								or: [ ('ªµº' includes: currentCharacter)
-										or: [ (currentCharacter
-												between: (Character value: 192)
-												and: (Character value: 214))
-												or: [ (currentCharacter
-														between: (Character value: 216)
-														and: (Character value: 246))
-														or: [ currentCharacter >= (Character value: 248) ] ] ] ] ] ] ])
-		ifTrue: [ ^ self scan4 ].
-	^ self reportLastMatch
+		ifTrue: [ ^ self scanForTokenX9 ].
+	currentCharacter == $;
+		ifTrue: [ ^ self recordAndReportMatch: #(7 31) ].
+	currentCharacter == $<
+		ifTrue: [ ^ self scanForTokenX5 ].
+	currentCharacter == $>
+		ifTrue: [ ^ self scanForTokenX4 ].
+	currentCharacter == $[
+		ifTrue: [ ^ self recordAndReportMatch: #(10 31) ].
+	currentCharacter == $]
+		ifTrue: [ ^ self recordAndReportMatch: #(11 31) ].
+	currentCharacter == $^
+		ifTrue: [ ^ self recordAndReportMatch: #(12 31) ].
+	currentCharacter == ${
+		ifTrue: [ ^ self recordAndReportMatch: #(16 31) ].
+	^ self scanForTokenX13
 ]
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX2 [
 	self recordMatch: #(26 31).
 	self step.
-	(currentCharacter between: $0 and: $9)
-		ifTrue: [ [ self recordMatch: #(22).
-			self step.
-			currentCharacter between: $0 and: $9 ] whileTrue.
-			^ self reportLastMatch ].
 	(currentCharacter == $!
 		or: [ (currentCharacter between: $% and: $&)
 				or: [ (currentCharacter between: $* and: $+)
@@ -407,7 +290,7 @@ GraciousScanner >> scanForTokenX2 [
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX3 [
-	self recordMatch: #(26 31).
+	self recordMatch: #(17 26 31).
 	self step.
 	(currentCharacter == $!
 		or: [ (currentCharacter between: $% and: $&)
@@ -451,7 +334,7 @@ GraciousScanner >> scanForTokenX4 [
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX5 [
-	self recordMatch: #(10 26 31).
+	self recordMatch: #(8 26 31).
 	self step.
 	(currentCharacter == $!
 		or: [ (currentCharacter between: $% and: $&)
@@ -473,23 +356,17 @@ GraciousScanner >> scanForTokenX5 [
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX6 [
-	self recordMatch: #(7 26 31).
+	self recordMatch: #(20 31).
 	self step.
-	(currentCharacter == $!
-		or: [ (currentCharacter between: $% and: $&)
-				or: [ (currentCharacter between: $* and: $+)
-						or: [ ('-/' includes: currentCharacter)
-								or: [ (currentCharacter between: $< and: $@)
-										or: [ '\|~' includes: currentCharacter ] ] ] ] ])
-		ifTrue: [ [ self recordMatch: #(26).
-			self step.
-			currentCharacter == $!
-				or: [ (currentCharacter between: $% and: $&)
-						or: [ (currentCharacter between: $* and: $+)
-								or: [ ('-/' includes: currentCharacter)
-										or: [ (currentCharacter between: $< and: $@)
-												or: [ '\|~' includes: currentCharacter ] ] ] ] ] ]
-				whileTrue ].
+	currentCharacter == $.
+		ifTrue: [ ^ self scan5 ].
+	currentCharacter == $:
+		ifTrue: [ ^ self scan7 ].
+	(currentCharacter isSeparator
+		or: [ currentCharacter == Character pageUp ])
+		ifTrue: [ ^ self scan3 ].
+	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
+		ifTrue: [ ^ self scan4 ].
 	^ self reportLastMatch
 ]
 
@@ -522,12 +399,10 @@ GraciousScanner >> scanForTokenX8 [
 
 { #category : #generated }
 GraciousScanner >> scanForTokenX9 [
-	self recordMatch: #(21 31).
+	self recordMatch: #(5 31).
 	self step.
-	(currentCharacter between: $0 and: $9)
-		ifTrue: [ [ self recordMatch: #(21).
-			self step.
-			currentCharacter between: $0 and: $9 ] whileTrue ].
+	currentCharacter == $=
+		ifTrue: [ ^ self recordAndReportMatch: #(6) ].
 	^ self reportLastMatch
 ]
 

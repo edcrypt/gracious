@@ -12,8 +12,8 @@ My main design principle are:
 By naturalistic, I mean that I aim to have this features, one syntactic and two semantic:
 
 - Expressions that read like sentences, allowing spaces on identifiers and messages  (as inspired by *Polite>https://zenodo.org/record/61578#.WAdi7x8xD0o*, but closer to Pharo)
-- Prototyped object model
-- Actor-model based
+- Prototypes-based object model with differential inheritance
+- Actor-model based concurrency
 
 !! Syntax
 To try out the parser:
