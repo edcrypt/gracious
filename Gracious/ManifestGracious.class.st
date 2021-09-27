@@ -1,5 +1,5 @@
 "
-I store metadata for this package. These meta data are used by other tools such as the SmalllintManifestChecker and the critics Browser
+Please describe the package using the class comment of the included manifest class. The manifest class also includes other additional metadata for the package. These meta data are used by other tools such as the SmalllintManifestChecker and the critics Browser
 "
 Class {
 	#name : #ManifestGracious,
@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'code-critics' }
-ManifestGracious class >> ruleGRTemporaryNeitherReadNorWrittenRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsMethodWithMultipleVars #false)) #'2021-05-30T11:33:11.600446-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testCascadeMessageMethod #false)) #'2021-05-30T13:53:59.326481-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testBlockMethod #false)) #'2021-05-30T13:55:08.915232-03:00') )
+ManifestGracious class >> ruleLiteralArrayContainsCommaRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#GrTokenizerTest #testScan #false)) #'2021-09-24T23:17:54.483704-03:00') )
 ]
 
 { #category : #'code-critics' }
-ManifestGracious class >> ruleRBBadMessageRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#Object #graciousPerform: #false)) #'2021-05-27T17:18:57.020864-03:00') )
+ManifestGracious class >> ruleLongMethodsRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#GrTokenizerTest #testScan #false)) #'2021-09-25T13:00:09.866242-03:00') )
 ]
 
 { #category : #'code-critics' }
-ManifestGracious class >> ruleRBTempsReadBeforeWrittenRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#GraciousParserTests #testsimpleElementsMultiKeywordMethod #false)) #'2021-05-30T11:31:40.571527-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsMethodWithMultipleVars #false)) #'2021-05-30T11:35:17.879406-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsMethod #false)) #'2021-05-30T13:12:12.534437-03:00') #(#(#RGMethodDefinition #(#GraciousParserTests #testSimpleElementsKeywordMethod #false)) #'2021-05-30T13:15:21.778901-03:00') )
+ManifestGracious class >> ruleReTemporaryVariableCapitalizationRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#GrTokenizer #initialize #false)) #'2021-09-22T13:19:40.270485-03:00') )
 ]
